@@ -22,7 +22,6 @@ public class TrainApiClient {
     public List<JsonObject> fetchFares(String searchSessionId, String trainKey) {
         List<JsonObject> fares = new ArrayList<>();
         if (searchSessionId == null || trainKey == null) {
-            System.out.println("DEBUG: searchSessionId или trainKey равны null, возвращаем пустой список.");
             return fares;
         }
 
@@ -32,7 +31,6 @@ public class TrainApiClient {
             JsonObject requestBody = new JsonObject();
             requestBody.addProperty("search_session_id", searchSessionId);
             requestBody.addProperty("train_key", trainKey);
-            System.out.println("DEBUG: Request body: " + requestBody.toString());
 
             HttpResponse<String> response = Unirest.post(url)
                     .header("Content-Type", "application/json")
@@ -41,25 +39,12 @@ public class TrainApiClient {
                     .body(requestBody.toString())
                     .asString();
 
-            System.out.println("DEBUG: HTTP статус ответа: " + response.getStatus());
-            System.out.println("DEBUG: Тело ответа: " + response.getBody());
-
             if (response.getStatus() == 200) {
                 JsonArray faresArray = JsonParser.parseString(response.getBody()).getAsJsonArray();
-                System.out.println("DEBUG: Количество полученных элементов fares: " + faresArray.size());
 
                 for (JsonElement element : faresArray) {
                     if (element.isJsonObject()) {
-                        JsonObject fareObj = element.getAsJsonObject();
-                        System.out.println("DEBUG: Добавляем fare: " + fareObj.toString());
-
-                        for (String key : fareObj.keySet()) {
-                            System.out.println("    Ключ: " + key + ", Значение: " + fareObj.get(key));
-                        }
-
-                        fares.add(fareObj);
-                    } else {
-                        System.out.println("DEBUG: Элемент не является JsonObject и будет пропущен: " + element);
+                        fares.add(element.getAsJsonObject());
                     }
                 }
             } else {
@@ -71,7 +56,4 @@ public class TrainApiClient {
 
         return fares;
     }
-
-
-
 }

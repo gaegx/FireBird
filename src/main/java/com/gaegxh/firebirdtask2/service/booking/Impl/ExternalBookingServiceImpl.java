@@ -50,7 +50,7 @@ public class ExternalBookingServiceImpl implements ExternalBookingService {
                     return gson.fromJson(response.getBody(), JsonElement.class);
                 } else {
 
-                    System.err.println("Попытка " + attempt + ": ошибка API — статус " + response.getStatus());
+                    System.err.println("Попытка " + attempt + ": ошибка Сервера");
                     if (attempt == maxAttempts) {
                         throw new RuntimeException("Ошибка API после " + maxAttempts + " попыток. Последний ответ: " + response.getBody());
                     }
@@ -63,7 +63,7 @@ public class ExternalBookingServiceImpl implements ExternalBookingService {
             }
 
             try {
-                // Короткая задержка перед повтором
+
                 Thread.sleep(1000);
             } catch (InterruptedException ignored) {
                 Thread.currentThread().interrupt();

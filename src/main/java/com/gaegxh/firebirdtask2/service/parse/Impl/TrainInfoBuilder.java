@@ -29,7 +29,7 @@ public class TrainInfoBuilder {
     public List<TrainInfo> buildTrainInfos(JsonObject train, String trainKey, String searchSessionId) {
         // Шаг 1: Собираем промежуточные данные
         IntermediateTrainInfo intermediate = collectIntermediateData(train, trainKey, searchSessionId);
-        // Шаг 2: Преобразуем в TrainInfo
+
         return buildFromIntermediate(intermediate);
     }
 
