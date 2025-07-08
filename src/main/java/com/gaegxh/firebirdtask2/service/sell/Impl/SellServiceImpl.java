@@ -33,7 +33,7 @@ public class SellServiceImpl implements SellService {
     private final ClientDetailsService clientDetailsService;
     private final PrebookingService prebookingService;
     private final BookingIdParser bookingIdParser;
-    private final PaymentService paymentServiceUnirest;
+    private final PaymentService paymentService;
     private final BookingSummaryCsvExporter bookingSummaryCsvExporter;
 
 
@@ -46,7 +46,7 @@ public class SellServiceImpl implements SellService {
         passengerApiService.sendPassengers(bookId, passengerRequest);
         clientDetailsService.sendClientDetails(bookId, clientDetailsRequest);
         prebookingService.sendPrebooking(bookId);
-        var payment = paymentServiceUnirest.sendPayment(bookId, paymentRequest);
+        var payment = paymentService.sendPayment(bookId, paymentRequest);
         BookingSummary order = mapToBookingSummary(bookId, trains.get(0), passengerRequest.getPassengers(), payment);
 
         String folderName = "Oreder";
