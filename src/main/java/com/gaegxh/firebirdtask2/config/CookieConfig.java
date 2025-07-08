@@ -44,7 +44,7 @@ public class CookieConfig {
                     cookies = setCookieHeaders.stream()
                             .map(cookie -> cookie.split(";", 2)[0].trim()) // только "key=value"
                             .collect(Collectors.joining("; "));
-                    System.out.println("Updated cookies: " + cookies);
+
                 } else {
                     System.err.println("No Set-Cookie headers found");
                     cookies = "";

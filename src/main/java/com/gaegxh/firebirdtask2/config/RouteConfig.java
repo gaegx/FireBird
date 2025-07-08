@@ -55,7 +55,7 @@ public class RouteConfig {
                 JsonObject json = JsonParser.parseString(response.getBody()).getAsJsonObject();
                 String uuid = json.get("uuid").getAsString();
                 routes.put(stationKey, uuid);
-                System.out.println("Station " + stationKey + ": " + uuid);
+
             } else {
                 System.err.println("Failed to fetch station " + stationKey + ": " + response.getStatus());
             }

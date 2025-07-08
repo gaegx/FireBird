@@ -30,7 +30,7 @@ public class ExternalBookingServiceImpl implements ExternalBookingService {
         JsonObject requestBody = mapper.toJson(trainInfo).getAsJsonObject();
         requestBody.remove("baseUrl");
 
-        System.out.println("Отправляем JSON:\n" + gson.toJson(requestBody));
+
 
         int maxAttempts = 3;
         int attempt = 0;
